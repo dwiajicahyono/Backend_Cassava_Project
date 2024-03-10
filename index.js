@@ -7,7 +7,9 @@ import SequelizeStore from "connect-session-sequelize";
 import UserRoute from "./routes/UserRoute.js";
 import ProductRoute from "./routes/ProductRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
-import PetaniRoute from './routes/PetaniRoute.js'
+import PetaniRoute from './routes/PetaniRoute.js';
+import LogistikRoute from './routes/LogistikRoute.js';
+import PabrikRoute from './routes/PabrikRoute.js';
 
 
 dotenv.config();
@@ -52,6 +54,8 @@ app.use(UserRoute);
 app.use(ProductRoute);
 app.use(AuthRoute);
 app.use(PetaniRoute);
+app.use(LogistikRoute);
+app.use(PabrikRoute);
 
 // store.sync();
 
