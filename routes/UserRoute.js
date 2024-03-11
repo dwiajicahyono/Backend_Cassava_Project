@@ -37,11 +37,12 @@ const upload = multer({
 // router.delete('/users/:id', deleteUser);
 
 
+// router.patch('/users/:uuid', verifyUser, adminOnly, updateUser);
 // ****************************************************************
 router.get('/users', verifyUser, adminOnly, getUsers);
-router.get('/users/:uuid', verifyUser, adminOnly, getUserById);
+// router.get('/users/:uuid', verifyUser, adminOnly, getUserById); get detail user
+router.get('/users/:uuid', verifyUser, getUserById);
 router.post('/users', verifyUser, adminOnly, createUser);
-// router.patch('/users/:uuid', verifyUser, adminOnly, updateUser);
 router.patch('/users/:uuid', verifyUser, upload.single('foto'), updateUser);
 router.delete('/users/:uuid', verifyUser, adminOnly, deleteUser);
 export default router;

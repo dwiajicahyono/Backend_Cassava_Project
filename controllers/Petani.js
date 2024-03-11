@@ -1,4 +1,4 @@
-import Petani from "../models/PetaniModel.js";
+import Petani from "../models/DataPetaniModel.js";
 import User from "../models/UserModel.js";
 import { Op } from "sequelize";
 
