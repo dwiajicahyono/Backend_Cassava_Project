@@ -47,7 +47,7 @@ const OrderPemanen = db.define('order_pemanen', {
     },
     namaLogistik: DataTypes.STRING,
     noHpLogistik: DataTypes.STRING,
-    platnoLogistik: DataTypes.INTEGER,
+    platnoLogistik: DataTypes.STRING,
     namaPerusahaan: DataTypes.STRING,
     noHpPerusahaan: DataTypes.STRING,
 }, {

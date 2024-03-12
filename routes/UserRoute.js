@@ -28,15 +28,13 @@ const upload = multer({
     },
     limits: { fileSize: 1024 * 1024 * 5 }, // 5MB
 });
-// end logika tambah gambar
 
+// end logika tambah gambar
 // router.get('/users', getUsers);
 // router.get('/users/:uuid', getUserById);
 // router.post('/users', createUser);
 // router.put('/users/:uuid', updateUser);
 // router.delete('/users/:id', deleteUser);
-
-
 // router.patch('/users/:uuid', verifyUser, adminOnly, updateUser);
 // ****************************************************************
 router.get('/users', verifyUser, adminOnly, getUsers);
