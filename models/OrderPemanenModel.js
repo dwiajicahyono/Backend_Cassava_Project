@@ -14,24 +14,16 @@ function generateRandomString(length) {
     return result;
 }
 
-const Products = db.define('product', {
-    // uuid:{
-    //     type: DataTypes.STRING,
-    //     defaultValue: DataTypes.UUIDV4,
-    //     allowNull: false,
-    //     validate:{
-    //         notEmpty: true
-    //     }
-    // },
+const OrderPemanen = db.define('order_pemanen', {
     uuid: {
         type: DataTypes.STRING,
-        defaultValue: () => `PD-${generateRandomString(6)}`, // Menggunakan fungsi untuk menambahkan 'PT-' diikuti oleh string acak
+        defaultValue: () => `ORD-${generateRandomString(6)}`, // Menggunakan fungsi untuk menambahkan 'PT-' diikuti oleh string acak
         allowNull: false,
         validate: {
             notEmpty: true
         }
     },
-    name: {
+    tanggalPemanenan: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -39,25 +31,30 @@ const Products = db.define('product', {
             len: [3, 100]
         }
     },
-    price: {
+    statusOrder: {
+        type: DataTypes.STRING,
+        defaultValue: 'pending'
+    },
+    varietasSingkong: DataTypes.STRING,
+    estimasiBerat: DataTypes.INTEGER,
+    estimasiHarga: DataTypes.INTEGER,
+    userId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         validate: {
             notEmpty: true
         }
     },
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    }
+    namaLogistik: DataTypes.STRING,
+    noHpLogistik: DataTypes.STRING,
+    platnoLogistik: DataTypes.INTEGER,
+    namaPerusahaan: DataTypes.STRING,
+    noHpPerusahaan: DataTypes.STRING,
 }, {
     freezeTableName: true
 });
 
-Users.hasMany(Products);
-Products.belongsTo(Users, { foreignKey: 'userId' });
+Users.hasMany(OrderPemanen);
+OrderPemanen.belongsTo(Users, { foreignKey: 'userId' });
 
-export default Products;
+export default OrderPemanen;
