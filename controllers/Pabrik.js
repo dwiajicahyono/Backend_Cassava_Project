@@ -10,7 +10,8 @@ export const getPabrik = async (req, res) => {
                 include: [{
                     model: User,
                     attributes: ['name', 'email']
-                }]
+                }],
+                order: [['updatedAt', 'DESC']]
             });
         } else if (req.role === "pabrik") {
             // Jika pengguna adalah pabrik, hanya ambil data yang dia buat
@@ -21,12 +22,48 @@ export const getPabrik = async (req, res) => {
                 include: [{
                     model: User,
                     attributes: ['name', 'email']
-                }]
+                }],
+                order: [['updatedAt', 'DESC']]
             });
         } else {
             // Jika role pengguna tidak dikenali atau tidak diizinkan melihat data
             return res.status(403).json({ msg: "Akses Ditolak" });
         }
+        res.status(200).json(response);
+    } catch (error) {
+        console.error('Error saat mendapatkan data pabrik:', error.message);
+        res.status(500).json({ msg: error.message });
+    }
+};
+
+export const getPabrikById = async (req, res) => {
+    const { id } = req.params; // Mengambil ID dari parameter URL
+
+    try {
+        let response;
+
+        // Menemukan data pabrik berdasarkan ID
+        const pabrik = await Pabrik.findOne({
+            where: { id: id },
+            include: [{
+                model: User,
+                attributes: ['name', 'email'] // Informasi pengguna yang terkait
+            }]
+        });
+
+        // Jika pabrik tidak ditemukan
+        if (!pabrik) {
+            return res.status(404).json({ msg: "Data pabrik tidak ditemukan." });
+        }
+
+        // Jika pengguna adalah admin, atau jika pengguna adalah pabrik dan ID pengguna cocok dengan userId pabrik
+        if (req.role === "admin" || (req.role === "pabrik" && req.userId === pabrik.userId)) {
+            response = pabrik;
+        } else {
+            // Jika kondisi di atas tidak terpenuhi, pengguna tidak diizinkan melihat data
+            return res.status(403).json({ msg: "Akses ditolak." });
+        }
+
         res.status(200).json(response);
     } catch (error) {
         console.error('Error saat mendapatkan data pabrik:', error.message);

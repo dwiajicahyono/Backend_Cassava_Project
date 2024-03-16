@@ -17,7 +17,7 @@ export const getProducts = async (req, res) => {
         } else {
             // Pengguna lain hanya bisa melihat produk yang mereka buat dengan informasi terbatas
             response = await Product.findAll({
-                attributes: ['uuid', 'tanggalPemanenan', 'statusOrder', 'varietasSingkong', 'estimasiBerat', 'estimasiHarga', 'namaLogistik', 'noHpLogistik', 'platnoLogistik', 'namaPerusahaan'],
+                attributes: ['uuid', 'tanggalPemanenan', 'statusOrder', 'varietasSingkong', 'estimasiBerat', 'estimasiHarga', 'namaLogistik', 'noHpLogistik', 'platnoLogistik', 'namaPerusahaan', 'noHpPerusahaan'],
                 where: {
                     userId: req.userId
                 },
@@ -43,7 +43,7 @@ export const getProductById = async (req, res) => {
         if (!product) return res.status(404).json({ msg: "Data tidak ditemukan" });
 
         let response;
-        if (req.role === "admin") {
+        if (req.role === "admin" || req.role === "pabrik" || req.role === "logistik") {
             response = await Product.findOne({
                 attributes: ['uuid', 'tanggalPemanenan', 'statusOrder', 'varietasSingkong', 'estimasiBerat', 'estimasiHarga', 'userId', 'namaLogistik', 'noHpLogistik', 'platnoLogistik', 'namaPerusahaan', 'noHpPerusahaan'],
                 where: {

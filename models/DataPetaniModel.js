@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import Users from "./UserModel.js";
 
+
 const { DataTypes } = Sequelize;
 // Fungsi untuk menghasilkan string acak dengan panjang tertentu
 function generateRandomString(length) {
@@ -62,5 +63,6 @@ const Petani = db.define('data_petani', {
 });
 Users.hasMany(Petani);
 Petani.belongsTo(Users, { foreignKey: 'userId' });
+
 
 export default Petani;

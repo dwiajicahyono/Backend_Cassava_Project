@@ -11,7 +11,8 @@ export const getPetanis = async (req, res) => {
                 include: [{
                     model: User,
                     attributes: ['name', 'email'] // Contoh atribut yang di-include dari User
-                }]
+                }],
+                order: [['updatedAt', 'DESC']]
             });
         } else if (req.role === "petani") {
             // Jika pengguna adalah petani, hanya ambil data yang dia buat
@@ -22,7 +23,8 @@ export const getPetanis = async (req, res) => {
                 include: [{
                     model: User,
                     attributes: ['name', 'email'] // Asumsi Anda ingin menampilkan informasi ini
-                }]
+                }],
+                order: [['updatedAt', 'DESC']] // Menambahkan pengurutan berdasarkan updatedAt secara descending
             });
         } else {
             // Jika role pengguna tidak dikenali atau tidak diizinkan melihat data
